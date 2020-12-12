@@ -1,0 +1,70 @@
+.root{
+    border: none;
+}
+
+ion-content{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+ion-footer{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+ion-content h3{
+    margin-top: 300px;
+}
+
+ion-content a{
+    margin-top: 50px;
+    font-size: 100px;
+}
+
+ion-header a ion-icon{
+    font-size: 40px;
+}
+
+ion-content a ion-icon{
+    margin-top: 50px;
+    font-size: 100px;
+}
+
+ion-footer a ion-icon{
+    margin-top: 10px;
+    font-size: 30px;
+}
+
+ion-item{
+    margin-top: 20px;
+    justify-content: center;
+    text-align: center;
+}
+
+.profile {
+    height: 200px;
+    width: 200px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    }
+
+.circle {
+height: 200px;
+width: 200px;
+background-color: #bbb;
+border-radius: 50%;
+display: inline-block;
+margin-top: 55%;
+}
+
+.dot {
+height: 55px;
+width: 55px;
+background-color: #bbb;
+border-radius: 50%;
+display: inline-block;
+margin: 10px;
+}

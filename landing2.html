@@ -3,7 +3,7 @@
 <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, intial-scale=1.0">
-        <title>Dashboard</title>
+        <title>Enter Passcode</title>
             <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
             <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css"/>
@@ -17,13 +17,13 @@
 <body>
     <ion-app>
         <ion-content>
-                <a class="circle" href="profile.html"><ion-icon name="person-outline"></ion-icon></a>
+                <h3>Secret Diary</h3>
+            <ion-item>
+                <ion-input placeholder="Enter Passcode" type="number"></ion-input>
+            </ion-item>
         </ion-content>
-        <ion-footer style="height: 20%;">
-            <a class="dot" href="post1.html"><ion-icon name="pencil-outline"></ion-icon></a>
-            <a class="dot" href="gallery.html"><ion-icon name="image-outline"></ion-icon></a>
-            <a class="dot" href="archive.html"><ion-icon name="file-tray-full-outline"></ion-icon></a>
-            <a class="dot" href="landing2.html"><ion-icon name="log-out-outline"></ion-icon></a>
+        <ion-footer>
+            <ion-button expand="full" href="index.html" style="width: 100%;">Next</ion-button>
         </ion-footer>
     </ion-app>
 </body>

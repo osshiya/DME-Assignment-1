@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, intial-scale=1.0">
+        <title>Create a New Post</title>
+            <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+            <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css"/>
+
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+            <script src="app.js"></script>
+            <link rel="stylesheet" href="style.css">
+
+            <!--<script type="module">
+                import { pickerController } from 'https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/index.esm.js';
+                window.pickerController = pickerController;
+            </script>-->
+
+            <style>
+                .date{
+                    vertical-align: middle;
+                    justify-content: center;
+                    text-align: center;
+                    margin-top: 70%;
+                }
+
+                .options{
+                    margin-top: 50px;
+                }
+
+                .mood{
+                    width: 50%;
+                    display: flex;
+                    text-align: center;
+                    justify-content: center;
+                    float: left;
+                }
+
+                .mood select{
+                    width: 50px;
+                    height: 50px;
+                }
+
+                .weather{
+                    width: 50%;
+                    display: flex;
+                    text-align: center;
+                    justify-content: center;
+                    float: right;
+                }
+
+                .weather select{
+                    width: 50px;
+                    height: 50px;
+                }
+
+                [type=radio] { 
+                    position: absolute;
+                    opacity: 0;
+                    width: 0;
+                    height: 0;
+                }
+
+                .options label p{
+                    font-size: 30px;
+                }
+                
+                [type=radio]:checked + p{
+                    outline: 2px solid #f00;
+                }
+            </style>
+</head>
+
+<body>
+    <ion-app>
+        <ion-header>
+            <a class="back" href="index.html"><ion-icon name="caret-back-outline"></ion-icon></a>
+        </ion-header>
+        <ion-content>
+        <div class="date">
+            <ion-datetime value="2020-01-01" placeholder="Select Date"></ion-datetime>
+            <!--<ion-button class="dot" onclick="openPicker()">
+                <p class="emoji"></p>
+            </ion-button>-->
+        </div>
+        <div class="options">
+        <div class="mood">
+
+            <label>
+                <input type="radio" name="mood" id="happy">
+                <p>&#128512</p>
+            </label>
+            <label>
+                <input type="radio" name="mood" id="sad">
+                <p>&#128546</p>
+            </label>
+            <label>
+                 <input type="radio" name="mood" id="angry">
+                 <p>&#128544</p>
+            </label>
+        </div>
+        <div class="weather">
+            <label>
+                <input type="radio" name="weather" id="sunny">
+                <p>&#9728</p>
+            </label>
+            <label>
+                <input type="radio" name="weather" id="cloudy">
+                <p>&#9729</p>
+            </label>
+            <label>
+                <input type="radio" name="weather" id="rainy">
+                <p>	&#127783</p>
+            </label>
+            <label>
+                <input type="radio" name="weather" id="thunderstorm">
+                <p>&#9928</p>
+            </label>
+        </div>
+        </div>
+        </div>
+        </ion-content>
+        <ion-footer>
+            <ion-button expand="full" href="post2.html" style="width: 100%;">Next</ion-button>
+        </ion-footer>
+    </ion-app>
+
+    <!--<script>
+    const defaultColumnOptions = [
+      [
+        '&#128512',
+        'Cat',
+        'Bird',
+        'Lizard',
+        'Chinchilla'
+      ]
+    ]
+
+    async function openPicker(numColumns = 1, numOptions = 5, columnOptions = defaultColumnOptions){
+      const picker = await pickerController.create({
+        columns: this.getColumns(numColumns, numOptions, columnOptions),
+        buttons: [
+          {
+            text: 'Cancel',
+            role: 'cancel'
+          },
+          {
+            text: 'Confirm',
+            handler: (value) => {
+                $(".emoji").text(value["col-0"].text);
+              console.log(value["col-0"].text);
+            }
+          }
+        ]
+      });
+
+      await picker.present();
+    }
+
+    function getColumns(numColumns, numOptions, columnOptions) {
+      let columns = [];
+      for (let i = 0; i < numColumns; i++) {
+        columns.push({
+          name: `col-${i}`,
+          options: this.getColumnOptions(i, numOptions, columnOptions)
+        });
+      }
+
+      return columns;
+    }
+
+    function getColumnOptions(columnIndex, numOptions, columnOptions) {
+      let options = [];
+      for (let i = 0; i < numOptions; i++) {
+        options.push({
+          text: columnOptions[columnIndex][i % numOptions],
+          value: i
+        })
+      }
+
+      return options;
+    }
+    </script>-->
+</body>
+</html>
