@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, intial-scale=1.0">
+        <title>Create a New Post</title>
+            <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+            <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css"/>
+
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+            <script src="app.js"></script>
+            <link rel="stylesheet" href="style.css">
+
+            <style>
+                .date{
+                    vertical-align: middle;
+                    justify-content: center;
+                    text-align: center;
+                    margin-top: 70%;
+                    background-color: rgba(0, 0, 0, 0.384);
+                }
+            </style>
+</head>
+
+<body>
+    <ion-app>
+        <ion-header>
+            <a class="back" href="post1.html"><ion-icon name="caret-back-outline"></ion-icon></a>
+        </ion-header>
+        <ion-content>
+            <ion-input></ion-input>
+        </ion-content>
+        <ion-footer>
+            <ion-button expand="full" href="archive.html" style="width: 100%;">Post</ion-button>
+        </ion-footer>
+    </ion-app>
+</body>
+</html>
