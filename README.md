@@ -3,16 +3,14 @@ Momentum is a mobile application for users to log their daily moments and events
 
 - [GitHub](https://github.com/osshiya/DME-Assignment-1.git)
 - [GitHub Pages](https://osshiya.github.io/DME-Assignment-1/)
+
 ## Design Process
 The application is designed for all ages group but mainly adolescene and youths who are on their phones most of thhe them and keep log down their days as habit. three different groups of users; Adminstrator, Staff and Students from IMGD.
 
 As a adolescene, I will want what I wrote to be total privacy from others.
 As a youth, I will want smooth, easy navigating and comfortable experience.
 
-
-        This section is also where you would share links to any wireframes, mockups, diagrams etc. that you created as part of the design process. 
-        These files should themselves either be included as a pdf file in the project itself (in an separate directory)
-        Include the Adobe XD wireframe as a folder. You can include the XD share url. 
+- [XD]("DME-Assg1-Wireframe-S10187403A-OngShiYa.xd")
 
 ## Features
 - Passcode: With numerical passcode (Modifiable)
@@ -22,11 +20,6 @@ As a youth, I will want smooth, easy navigating and comfortable experience.
 - Make new post: Write anything you want
 - Archive: Look back to all other older posts
 - Logout: Enforce privacy, need passcode to enter again
- 
-        ### Existing Features
-        - Feature 1 - allows users X to achieve Y, by having them fill out Z
-        - ...
-        In addition, you may also use this section to discuss plans for additional features to be implemented in the future:
 
 ### Features Left to Implement
 - Searchbar: Search for Keyword from posts
@@ -79,11 +72,7 @@ As a youth, I will want smooth, easy navigating and comfortable experience.
 
 ## Credits
 
-        ### Content
-        - The text for section Y was copied from the [Wikipedia article Z](https://en.wikipedia.org/wiki/Z)
-
 ### Media
-- The photos used in this site were obtained from ...
 
 ### Acknowledgements
 - I received inspiration for this project from DME Assignment01 Brief.pdf
