@@ -11,6 +11,11 @@
             <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
             <link rel="stylesheet" href="style.css">
+    
+                <script type="module">
+            import { alertController } from 'https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/index.esm.js';
+            window.alertController = alertController;
+          </script>
 </head>
 
 <body>
@@ -115,15 +120,39 @@
 } //end
 retrievePosts();
 
+document.getElementById("deleteBtn").onclick = async function(){
+    
+    
+if ($("input[name='sRadio']:checked").val() == undefined){
+  const alert = document.createElement('ion-alert');
+  alert.cssClass = 'my-custom-class';
+  alert.header = 'No Selection';
+  alert.message = 'You need to select a post';
+  alert.buttons = ['OK'];
 
-document.getElementById("deleteBtn").onclick = function(){ 
-    event.preventDefault();
-    event.stopPropagation();
-    console.log("click event");
-    var id = $("input[name='sRadio']:checked").val();
-    console.log("id... " + id);
-    deletePosts(id);
-};
+  document.body.appendChild(alert);
+  return alert.present();
+}else{
+  const alert = await alertController.create({
+    header: 'Delete',
+    message: 'Delete the selected post?',
+    buttons: [{
+        text: 'No'
+    },{
+        text: 'Yes',
+        handler: ()=> {
+            event.preventDefault();
+            event.stopPropagation();
+            console.log("click event");
+            var id = $("input[name='sRadio']:checked").val();
+            console.log("id... " + id);
+            deletePosts(id);
+            }
+
+  }]})
+  await alert.present();   
+}
+}
 
 function deletePosts(id){
                 var settings = {

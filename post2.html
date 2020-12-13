@@ -12,6 +12,10 @@
 
             <link rel="stylesheet" href="style.css">
 
+            <script type="module">
+            import { alertController } from 'https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/index.esm.js';
+            window.alertController = alertController;
+          </script>
             <style>
                 .date{
                     vertical-align: middle;
@@ -46,7 +50,7 @@
                   <ion-icon md="caret-back" ios="chevron-back-circle-outline"></ion-icon>
                 </ion-fab-button>
                 <ion-fab-list side="start">
-                  <ion-fab-button color="light">
+                  <ion-fab-button color="light" id="clearBtn">
                     <ion-icon name="trash-outline"></ion-icon>
                   </ion-fab-button>
                   <ion-fab-button color="light" id="saveBtn">
@@ -79,8 +83,30 @@
             title:"",
             msg:""   
           }
-    
-        document.getElementById("saveBtn").onclick = function (e) {
+          
+    document.getElementById("saveBtn").onclick = async function(){
+        ptitle = $("#post-title").val();
+        pmsg = $("#post-msg").val();
+    if (ptitle.length == 0 || pmsg.length == 0){
+        const alert = document.createElement('ion-alert');
+          alert.cssClass = 'my-custom-class';
+          alert.header = 'Empty field';
+          alert.message = 'You need to fill in all the blanks';
+          alert.buttons = ['OK'];
+
+          document.body.appendChild(alert);
+          return alert.present();
+        }else{
+        
+        
+      const alert = await alertController.create({
+        header: 'Post',
+        message: 'Do you want to post now?',
+        buttons: [{
+            text: 'No'
+        },{
+            text: 'Yes',
+            handler: ()=> {
         console.log("submitting form details");
         event.preventDefault();
 
@@ -117,7 +143,27 @@
             console.log(response);
             window.location.replace("archive.html");
           });
-         }
+            
+      }}]})
+      await alert.present();   
+    }
+    }
+    
+    document.getElementById("clearBtn").onclick = async function(){
+      const alert = await alertController.create({
+        header: 'Clear',
+        message: 'Do you want to clear everything?',
+        buttons: [{
+            text: 'No'
+        },{
+            text: 'Yes',
+            handler: ()=> {
+        $("#post-title").val("");
+        $("#post-msg").val("");
+          }    
+      }]})
+      await alert.present();   
+    }
         })
 </script>
 </body>

@@ -131,20 +131,39 @@
     <script>
         $(document).ready(function () {
         
-            document.getElementById("nextBtn").onclick = function(){
-                console.log("stored");
-                var moodVal = $("input[name='mood']:checked").val();
-                var weatherVal = $("input[name='weather']:checked").val();
-                var dateVal = document.getElementById("date").value;
-                var dateFormat = dateVal.split('T')[0]; 
+        document.getElementById("nextBtn").onclick = function(){
+        if(document.getElementById("date").value == undefined){
+        const alert = document.createElement('ion-alert');
+          alert.header = 'Date not selected';
+          alert.message = 'Select a Date';
+          alert.buttons = ['OK'];
 
-                sessionStorage.setItem('weathers', weatherVal);
-                sessionStorage.setItem('moods', moodVal);
+          document.body.appendChild(alert);
+          return alert.present();
+        }else if ($("input[name='mood']:checked").val() == undefined || $("input[name='weather']:checked").val() == undefined){
+        const alert = document.createElement('ion-alert');
+          alert.header = 'Empty field';
+          alert.message = 'You need to choose one of the Mood and Weather';
+          alert.buttons = ['OK'];
 
-                sessionStorage.setItem('dates', dateFormat);
+          document.body.appendChild(alert);
+          return alert.present();
+         }else{
+        console.log("stored");
+        var moodVal = $("input[name='mood']:checked").val();
+        var weatherVal = $("input[name='weather']:checked").val();
+        var dateVal = document.getElementById("date").value;
+        var dateFormat = dateVal.split('T')[0]; 
 
-                window.location.replace("post2.html");
+        sessionStorage.setItem('weathers', weatherVal);
+        sessionStorage.setItem('moods', moodVal);
+
+        sessionStorage.setItem('dates', dateFormat);
+
+        window.location.replace("post2.html");
             }
+            }
+            
     })
     </script>
 </body>

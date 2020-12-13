@@ -14,6 +14,11 @@
             <script nomodule src="https://unpkg.com/@ionic/pwa-elements@latest/dist/ionicpwaelements/ionicpwaelements.js"></script>
 
             <link rel="stylesheet" href="style.css">
+    
+            <script type="module">
+            import { alertController } from 'https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/index.esm.js';
+            window.alertController = alertController;
+          </script>
 </head>
 
 <body>
@@ -31,6 +36,10 @@
                     <ion-label>Bio:</ion-label>
                     <ion-textarea placeholder="Write something about yourself..." type="text" class="bio"></ion-textarea>
                   </ion-item>
+                  <ion-item>
+                    <ion-label>Change Passcode:</ion-label>
+                      <ion-input placeholder="Enter new Passcode" type="number" class="passcode"></ion-input>
+                  </ion-item>
         </ion-content>
         <ion-footer class="centered">
             <ion-button expand="full" style="width: 100%;" id="updateBtn">Save</ion-button>
@@ -38,20 +47,40 @@
     </ion-app>
     
     <script>
-        $(document).ready(function () {
-            $(".name").val(localStorage.getItem('name'));
-            $(".bio").val(localStorage.getItem('bio'));
-
-
-        document.getElementById("updateBtn").onclick = function(){
-        var name = $(".name").val();
-        localStorage.setItem('name', name);
+    $(document).ready(function () {
         $(".name").val(localStorage.getItem('name'));
-
-        var bio = $(".bio").val();
-        localStorage.setItem('bio', bio);
         $(".bio").val(localStorage.getItem('bio'));
-        }
+
+
+    document.getElementById("updateBtn").onclick = async function(){
+    
+      const alert = await alertController.create({
+        header: 'Confirm Changes?',
+        message: 'Do you want to make changes?',
+        buttons: [{
+            text: 'No'
+        },{
+            text: 'Yes',
+            handler: ()=> {
+                var name = $(".name").val();
+                localStorage.setItem('name', name);
+                $(".name").val(localStorage.getItem('name'));
+
+                var bio = $(".bio").val();
+                localStorage.setItem('bio', bio);
+                $(".bio").val(localStorage.getItem('bio'));
+                
+                
+                var passcodeLength = $(".passcode").val().length;
+                if (passcodeLength > 0){
+                var pc = $(".passcode").val();
+                localStorage.setItem('passcode', pc);
+                window.location.reload();
+                }
+            
+      }}]})
+      await alert.present();   
+    }
     })
     </script>
 </body>
