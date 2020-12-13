@@ -10,7 +10,6 @@
 
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-            <script src="app.js"></script>
             <link rel="stylesheet" href="style.css">
 
             <style>
@@ -21,6 +20,14 @@
                     margin-top: 70%;
                     background-color: rgba(0, 0, 0, 0.384);
                 }
+
+                .post-title{
+                    font-size: 30px;
+                }
+
+                .menu ion-fab-button{
+                    font-size: 20px;
+                }
             </style>
 </head>
 
@@ -30,11 +37,88 @@
             <a class="back" href="post1.html"><ion-icon name="caret-back-outline"></ion-icon></a>
         </ion-header>
         <ion-content>
-            <ion-input></ion-input>
+            <form id="form">
+            <ion-input id="post-title" placeholder="Title"></ion-input>
+            <ion-textarea id="post-msg" placeholder="Write Something..."></ion-textarea>
+        
+            <ion-fab class="menu" horizontal="end" vertical="bottom" slot="fixed">
+                <ion-fab-button color="light">
+                  <ion-icon md="caret-back" ios="chevron-back-circle-outline"></ion-icon>
+                </ion-fab-button>
+                <ion-fab-list side="start">
+                  <ion-fab-button color="light">
+                    <ion-icon name="trash-outline"></ion-icon>
+                  </ion-fab-button>
+                  <ion-fab-button color="light" id="saveBtn">
+                    <ion-icon name="save-outline"></ion-icon>
+                  </ion-fab-button>
+                  <ion-fab-button color="light">
+                    <ion-icon name="document-attach-outline"></ion-icon>
+                  </ion-fab-button>
+                  <ion-fab-button color="light">
+                    <ion-icon name="camera-outline"></ion-icon>
+                  </ion-fab-button>
+                </ion-fab-list>
+              </ion-fab>
+            </form>
         </ion-content>
-        <ion-footer>
-            <ion-button expand="full" href="archive.html" style="width: 100%;">Post</ion-button>
-        </ion-footer>
     </ion-app>
+
+    <script>
+    $(document).ready(function () {
+         
+         var apiKey = "9fb7c86d51fe67f4594c16f6e2842caa46286";
+         var myDB = "dmea1-6dde";
+         var myCollection = "posts";
+     
+          //create listener for submit
+          var post = {
+            date: "",
+            mood: "",
+            weather: "",
+            title:"",
+            msg:""   
+          }
+    
+        document.getElementById("saveBtn").onclick = function (e) {
+        console.log("submitting form details");
+        event.preventDefault();
+
+        //retrieve form values
+        post.date = sessionStorage.getItem('dates');
+        post.mood = sessionStorage.getItem('moods');
+        post.weather = sessionStorage.getItem('weathers');
+        post.title = $("#post-title").val();
+        post.msg = $("#post-msg").val();
+     
+            let postsDocument = {
+             date: post.date,
+             mood: post.mood,
+             weather: post.weather,
+             title: post.title,
+             msg: post.msg
+            };
+            
+            var settings = {
+              "async": true,
+              "crossDomain": true,
+              "url": "https://dmea1-6dde.restdb.io/rest/posts",
+              "method": "POST",
+              "headers": {
+                "content-type": "application/json",
+                "x-apikey": "9fb7c86d51fe67f4594c16f6e2842caa46286",
+                "cache-control": "no-cache"
+              },
+              "processData": false,
+              "data": JSON.stringify(postsDocument)
+            }
+     
+          $.ajax(settings).done(function (response) {
+            console.log(response);
+            window.location.replace("archive.html");
+          });
+         }
+        })
+</script>
 </body>
 </html>

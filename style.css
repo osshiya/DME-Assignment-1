@@ -1,21 +1,54 @@
-.root{
+/*.root{
     border: none;
+}*/
+
+body, ion-input, ion-textarea{
+    color: #8E8358 !important;
+    --color: #8E8358 !important;
+}
+
+ion-label, h3{
+    color:#525047 !important;
+    --color: #525047 !important;
+}
+
+ion-button{
+    background-color: #D6D6C4;
+    --background:#D6D6C4;
+    color: #8E8358;
+    --color: #8E8358;
+}
+
+ion-fab-button{
+    color: #8E8358;
+    --color: #8E8358;
+}
+
+ion-label, ion-input{
+    color: #8E8358;
+    --color: #8E8358;
+}
+
+ion-icon{
+    color: #525047;
+    --color: #525047;
 }
 
 ion-content{
     display: flex;
+}
+
+.centered{
     justify-content: center;
     text-align: center;
+}
+
+.centeredH3{
+    margin-top: 300px;
 }
 
 ion-footer{
     display: flex;
-    justify-content: center;
-    text-align: center;
-}
-
-ion-content h3{
-    margin-top: 300px;
 }
 
 ion-content a{
@@ -37,10 +70,16 @@ ion-footer a ion-icon{
     font-size: 30px;
 }
 
-ion-item{
+/*ion-item{
     margin-top: 20px;
     justify-content: center;
     text-align: center;
+}*/
+
+.passcode{
+    width: 100%;
+    text-align: center;
+    justify-content: center;
 }
 
 .profile {
@@ -52,19 +91,19 @@ ion-item{
     }
 
 .circle {
-height: 200px;
-width: 200px;
-background-color: #bbb;
-border-radius: 50%;
-display: inline-block;
-margin-top: 55%;
+    height: 200px;
+    width: 200px;
+    background-color: #D6D6C4;
+    border-radius: 50%;
+    display: inline-block;
+    margin-top: 55%;
 }
 
 .dot {
-height: 55px;
-width: 55px;
-background-color: #bbb;
-border-radius: 50%;
-display: inline-block;
-margin: 10px;
+    height: 55px;
+    width: 55px;
+    background-color:#D6D6C4;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 10px;
 }

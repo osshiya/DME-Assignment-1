@@ -10,7 +10,9 @@
 
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-            <script src="app.js"></script>
+            <script type="module" src="https://unpkg.com/@ionic/pwa-elements@latest/dist/ionicpwaelements/ionicpwaelements.esm.js"></script>
+            <script nomodule src="https://unpkg.com/@ionic/pwa-elements@latest/dist/ionicpwaelements/ionicpwaelements.js"></script>
+
             <link rel="stylesheet" href="style.css">
 </head>
 
@@ -19,12 +21,38 @@
         <ion-header>
             <a class="back" href="index.html"><ion-icon name="caret-back-outline"></ion-icon></a>
         </ion-header>
-        <ion-content  style="height: 50%;">
+        <ion-content  class="centered pfp" style="height: 50%;">
                 <a class="profile"><ion-icon name="person-outline"></ion-icon></a>
-                <p>Hellow</p>
+                <ion-item>
+                    <ion-label>Name:</ion-label>
+                    <ion-input placeholder="Your Name" type="text" class="name"></ion-input>
+                  </ion-item>
+                  <ion-item>
+                    <ion-label>Bio:</ion-label>
+                    <ion-textarea placeholder="Write something about yourself..." type="text" class="bio"></ion-textarea>
+                  </ion-item>
         </ion-content>
-        <ion-footer style="height: 40%;">
+        <ion-footer class="centered">
+            <ion-button expand="full" style="width: 100%;" id="updateBtn">Save</ion-button>
         </ion-footer>
     </ion-app>
+    
+    <script>
+        $(document).ready(function () {
+            $(".name").val(localStorage.getItem('name'));
+            $(".bio").val(localStorage.getItem('bio'));
+
+
+        document.getElementById("updateBtn").onclick = function(){
+        var name = $(".name").val();
+        localStorage.setItem('name', name);
+        $(".name").val(localStorage.getItem('name'));
+
+        var bio = $(".bio").val();
+        localStorage.setItem('bio', bio);
+        $(".bio").val(localStorage.getItem('bio'));
+        }
+    })
+    </script>
 </body>
 </html>

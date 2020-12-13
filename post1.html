@@ -7,10 +7,9 @@
             <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
             <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css"/>
-
+            <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-            <script src="app.js"></script>
+            
             <link rel="stylesheet" href="style.css">
 
             <!--<script type="module">
@@ -20,7 +19,6 @@
 
             <style>
                 .date{
-                    vertical-align: middle;
                     justify-content: center;
                     text-align: center;
                     margin-top: 70%;
@@ -28,14 +26,13 @@
 
                 .options{
                     margin-top: 50px;
+                    display: flex;
                 }
 
                 .mood{
-                    width: 50%;
-                    display: flex;
+                    width: 100%;
                     text-align: center;
                     justify-content: center;
-                    float: left;
                 }
 
                 .mood select{
@@ -44,11 +41,9 @@
                 }
 
                 .weather{
-                    width: 50%;
-                    display: flex;
+                    width: 100%;
                     text-align: center;
                     justify-content: center;
-                    float: right;
                 }
 
                 .weather select{
@@ -65,10 +60,15 @@
 
                 .options label p{
                     font-size: 30px;
+                    margin: 5px;
                 }
                 
                 [type=radio]:checked + p{
-                    outline: 2px solid #f00;
+                    background-color: rgba(0, 0, 0, 0.233);
+                }
+
+                .dateText{
+                    color: rgb(66, 66, 66);
                 }
             </style>
 </head>
@@ -78,110 +78,74 @@
         <ion-header>
             <a class="back" href="index.html"><ion-icon name="caret-back-outline"></ion-icon></a>
         </ion-header>
-        <ion-content>
+        <ion-content class="centered">
+        
         <div class="date">
-            <ion-datetime value="2020-01-01" placeholder="Select Date"></ion-datetime>
-            <!--<ion-button class="dot" onclick="openPicker()">
-                <p class="emoji"></p>
-            </ion-button>-->
+            <h3>Date</h3>
+            <ion-datetime class="dateText" id="date" min="2016" display-format="MMM DD, YYYY" placeholder="Select Date"></ion-datetime>
         </div>
         <div class="options">
         <div class="mood">
-
+            <h3>Mood</h3>
             <label>
-                <input type="radio" name="mood" id="happy">
+                <input type="radio" name="mood" id="mood" class="happy" value="&#128512">
                 <p>&#128512</p>
             </label>
             <label>
-                <input type="radio" name="mood" id="sad">
+                <input type="radio" name="mood" id="mood" class="sad" value="&#128546">
                 <p>&#128546</p>
             </label>
             <label>
-                 <input type="radio" name="mood" id="angry">
+                 <input type="radio" name="mood" id="mood" class="angry"  value="&#128544">
                  <p>&#128544</p>
             </label>
         </div>
+
         <div class="weather">
+            <h3>Weather</h3>
             <label>
-                <input type="radio" name="weather" id="sunny">
+                <input type="radio" name="weather" id="weather" class="sunny"  value="&#9728">
                 <p>&#9728</p>
             </label>
             <label>
-                <input type="radio" name="weather" id="cloudy">
+                <input type="radio" name="weather" id="weather" class="cloudy"  value="&#9729">
                 <p>&#9729</p>
             </label>
             <label>
-                <input type="radio" name="weather" id="rainy">
+                <input type="radio" name="weather" id="weather" class="rainy"  value="&#127783">
                 <p>	&#127783</p>
             </label>
             <label>
-                <input type="radio" name="weather" id="thunderstorm">
+                <input type="radio" name="weather" id="weather" class="thunderstorm"  value="&#9928">
                 <p>&#9928</p>
             </label>
         </div>
         </div>
         </div>
         </ion-content>
-        <ion-footer>
-            <ion-button expand="full" href="post2.html" style="width: 100%;">Next</ion-button>
+        <ion-footer class="centered">
+            <ion-button expand="full" style="width: 100%;" id="nextBtn">Next</ion-button>
         </ion-footer>
     </ion-app>
 
-    <!--<script>
-    const defaultColumnOptions = [
-      [
-        '&#128512',
-        'Cat',
-        'Bird',
-        'Lizard',
-        'Chinchilla'
-      ]
-    ]
+    <script>
+        $(document).ready(function () {
+        
+            document.getElementById("nextBtn").onclick = function(){
+                console.log("stored");
+                var moodVal = $("input[name='mood']:checked").val();
+                var weatherVal = $("input[name='weather']:checked").val();
+                var dateVal = document.getElementById("date").value;
+                var dateFormat = dateVal.split('T')[0]; 
 
-    async function openPicker(numColumns = 1, numOptions = 5, columnOptions = defaultColumnOptions){
-      const picker = await pickerController.create({
-        columns: this.getColumns(numColumns, numOptions, columnOptions),
-        buttons: [
-          {
-            text: 'Cancel',
-            role: 'cancel'
-          },
-          {
-            text: 'Confirm',
-            handler: (value) => {
-                $(".emoji").text(value["col-0"].text);
-              console.log(value["col-0"].text);
+                sessionStorage.setItem('weathers', weatherVal);
+                sessionStorage.setItem('moods', moodVal);
+
+                sessionStorage.setItem('dates', dateFormat);
+
+                window.location.replace("post2.html");
             }
-          }
-        ]
-      });
-
-      await picker.present();
-    }
-
-    function getColumns(numColumns, numOptions, columnOptions) {
-      let columns = [];
-      for (let i = 0; i < numColumns; i++) {
-        columns.push({
-          name: `col-${i}`,
-          options: this.getColumnOptions(i, numOptions, columnOptions)
-        });
-      }
-
-      return columns;
-    }
-
-    function getColumnOptions(columnIndex, numOptions, columnOptions) {
-      let options = [];
-      for (let i = 0; i < numOptions; i++) {
-        options.push({
-          text: columnOptions[columnIndex][i % numOptions],
-          value: i
-        })
-      }
-
-      return options;
-    }
-    </script>-->
+    })
+    </script>
 </body>
 </html>

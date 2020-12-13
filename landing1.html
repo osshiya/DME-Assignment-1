@@ -10,21 +10,30 @@
 
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-            <script src="app.js"></script>
             <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
     <ion-app>
-        <ion-content>
-                <h3>Secret Diary</h3>
+        <ion-content class="centered">
+                <h3 class="centeredH3">Secret Diary</h3>
             <ion-item>
-                <ion-input placeholder="Set a Passcode" type="number"></ion-input>
+                <ion-input class="passcode" placeholder="Set a Passcode" type="number"></ion-input>
             </ion-item>
         </ion-content>
-        <ion-footer>
-            <ion-button expand="full" href="index.html" style="width: 100%;">Next</ion-button>
+        <ion-footer class="centered">
+            <ion-button expand="full" style="width: 100%;" onclick="setPasscode()">Next</ion-button>
         </ion-footer>
     </ion-app>
+
+    <script>
+    function setPasscode(){
+        var pc = $(".passcode").val();
+        localStorage.setItem('passcode', pc);
+        console.log(localStorage.getItem('passcode'));
+
+        window.location.replace("index.html");
+    }
+    </script>
 </body>
 </html>

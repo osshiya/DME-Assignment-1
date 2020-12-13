@@ -10,21 +10,49 @@
 
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-            <script src="app.js"></script>
             <link rel="stylesheet" href="style.css">
+
+            <script type="module">
+                import { alertController } from 'https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/index.esm.js';
+                window.alertController = alertController;
+              </script>
 </head>
 
 <body>
     <ion-app>
-        <ion-content>
-                <h3>Secret Diary</h3>
+        <ion-content class="centered">
+                <h3 class="centeredH3">Secret Diary</h3>
             <ion-item>
-                <ion-input placeholder="Enter Passcode" type="number"></ion-input>
+                <ion-input class="passcode" placeholder="Enter Passcode" type="number"></ion-input>
             </ion-item>
         </ion-content>
-        <ion-footer>
-            <ion-button expand="full" href="index.html" style="width: 100%;">Next</ion-button>
+        <ion-footer class="centered">
+            <ion-button class="passcode" expand="full" style="width: 100%;" onclick="verifyPC()">Next</ion-button>
         </ion-footer>
     </ion-app>
+
+    <script>
+        function presentAlert() {
+        const alert = document.createElement('ion-alert');
+        alert.cssClass = 'my-custom-class';
+        alert.header = 'Wrong Passcode';
+        alert.message = 'You entered the wrong passcode.';
+        alert.buttons = ['Try Again'];
+
+        document.body.appendChild(alert);
+        return alert.present();
+        }
+
+        function verifyPC(){
+            var realPC = localStorage.getItem('passcode');
+            if($(".passcode").val() !== realPC){
+                presentAlert();
+            }else{
+                window.location.replace("index.html");
+            }
+        }
+
+    </script>
+
 </body>
 </html>
