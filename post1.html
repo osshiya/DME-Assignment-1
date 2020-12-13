@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, intial-scale=1.0">
+        <title>Create a New Post</title>
+            <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+            <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css"/>
+            <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+            
+            <link rel="stylesheet" href="style.css">
+
+            <!--<script type="module">
+                import { pickerController } from 'https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/index.esm.js';
+                window.pickerController = pickerController;
+            </script>-->
+
+            <style>
+                .date{
+                    justify-content: center;
+                    text-align: center;
+                    margin-top: 70%;
+                }
+
+                .options{
+                    margin-top: 50px;
+                    display: flex;
+                }
+
+                .mood{
+                    width: 100%;
+                    text-align: center;
+                    justify-content: center;
+                }
+
+                .mood select{
+                    width: 50px;
+                    height: 50px;
+                }
+
+                .weather{
+                    width: 100%;
+                    text-align: center;
+                    justify-content: center;
+                }
+
+                .weather select{
+                    width: 50px;
+                    height: 50px;
+                }
+
+                [type=radio] { 
+                    position: absolute;
+                    opacity: 0;
+                    width: 0;
+                    height: 0;
+                }
+
+                .options label p{
+                    font-size: 30px;
+                    margin: 5px;
+                }
+                
+                [type=radio]:checked + p{
+                    background-color: rgba(0, 0, 0, 0.233);
+                }
+
+                .dateText{
+                    color: rgb(66, 66, 66);
+                }
+            </style>
+</head>
+
+<body>
+    <ion-app>
+        <ion-header>
+            <a class="back" href="index.html"><ion-icon name="caret-back-outline"></ion-icon></a>
+        </ion-header>
+        <ion-content class="centered">
+        
+        <div class="date">
+            <h3>Date</h3>
+            <ion-datetime class="dateText" id="date" min="2016" display-format="MMM DD, YYYY" placeholder="Select Date"></ion-datetime>
+        </div>
+        <div class="options">
+        <div class="mood">
+            <h3>Mood</h3>
+            <label>
+                <input type="radio" name="mood" id="mood" class="happy" value="&#128512">
+                <p>&#128512</p>
+            </label>
+            <label>
+                <input type="radio" name="mood" id="mood" class="sad" value="&#128546">
+                <p>&#128546</p>
+            </label>
+            <label>
+                 <input type="radio" name="mood" id="mood" class="angry"  value="&#128544">
+                 <p>&#128544</p>
+            </label>
+        </div>
+
+        <div class="weather">
+            <h3>Weather</h3>
+            <label>
+                <input type="radio" name="weather" id="weather" class="sunny"  value="&#9728">
+                <p>&#9728</p>
+            </label>
+            <label>
+                <input type="radio" name="weather" id="weather" class="cloudy"  value="&#9729">
+                <p>&#9729</p>
+            </label>
+            <label>
+                <input type="radio" name="weather" id="weather" class="rainy"  value="&#127783">
+                <p>	&#127783</p>
+            </label>
+            <label>
+                <input type="radio" name="weather" id="weather" class="thunderstorm"  value="&#9928">
+                <p>&#9928</p>
+            </label>
+        </div>
+        </div>
+        </div>
+        </ion-content>
+        <ion-footer class="centered">
+            <ion-button expand="full" style="width: 100%;" id="nextBtn">Next</ion-button>
+        </ion-footer>
+    </ion-app>
+
+    <script>
+        $(document).ready(function () {
+        
+        document.getElementById("nextBtn").onclick = function(){
+        if(document.getElementById("date").value == undefined){
+        const alert = document.createElement('ion-alert');
+          alert.header = 'Date not selected';
+          alert.message = 'Select a Date';
+          alert.buttons = ['OK'];
+
+          document.body.appendChild(alert);
+          return alert.present();
+        }else if ($("input[name='mood']:checked").val() == undefined || $("input[name='weather']:checked").val() == undefined){
+        const alert = document.createElement('ion-alert');
+          alert.header = 'Empty field';
+          alert.message = 'You need to choose one of the Mood and Weather';
+          alert.buttons = ['OK'];
+
+          document.body.appendChild(alert);
+          return alert.present();
+         }else{
+        console.log("stored");
+        var moodVal = $("input[name='mood']:checked").val();
+        var weatherVal = $("input[name='weather']:checked").val();
+        var dateVal = document.getElementById("date").value;
+        var dateFormat = dateVal.split('T')[0]; 
+
+        sessionStorage.setItem('weathers', weatherVal);
+        sessionStorage.setItem('moods', moodVal);
+
+        sessionStorage.setItem('dates', dateFormat);
+
+        window.location.replace("post2.html");
+            }
+            }
+            
+    })
+    </script>
+</body>
+</html>

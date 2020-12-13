@@ -1,0 +1,109 @@
+/*.root{
+    border: none;
+}*/
+
+body, ion-input, ion-textarea{
+    color: #8E8358 !important;
+    --color: #8E8358 !important;
+}
+
+ion-label, h3{
+    color:#525047 !important;
+    --color: #525047 !important;
+}
+
+ion-button{
+    background-color: #D6D6C4;
+    --background:#D6D6C4;
+    color: #8E8358;
+    --color: #8E8358;
+}
+
+ion-fab-button{
+    color: #8E8358;
+    --color: #8E8358;
+}
+
+ion-label, ion-input{
+    color: #8E8358;
+    --color: #8E8358;
+}
+
+ion-icon{
+    color: #525047;
+    --color: #525047;
+}
+
+ion-content{
+    display: flex;
+}
+
+.centered{
+    justify-content: center;
+    text-align: center;
+}
+
+.centeredH3{
+    margin-top: 300px;
+}
+
+ion-footer{
+    display: flex;
+}
+
+ion-content a{
+    margin-top: 50px;
+    font-size: 100px;
+}
+
+ion-header a ion-icon{
+    font-size: 40px;
+}
+
+ion-content a ion-icon{
+    margin-top: 50px;
+    font-size: 100px;
+}
+
+ion-footer a ion-icon{
+    margin-top: 10px;
+    font-size: 30px;
+}
+
+/*ion-item{
+    margin-top: 20px;
+    justify-content: center;
+    text-align: center;
+}*/
+
+.passcode{
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+}
+
+.profile {
+    height: 200px;
+    width: 200px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    }
+
+.circle {
+    height: 200px;
+    width: 200px;
+    background-color: #D6D6C4;
+    border-radius: 50%;
+    display: inline-block;
+    margin-top: 55%;
+}
+
+.dot {
+    height: 55px;
+    width: 55px;
+    background-color:#D6D6C4;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 10px;
+}

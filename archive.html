@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, intial-scale=1.0">
+        <title>Archive</title>
+            <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+            <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css"/>
+
+            <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+            <link rel="stylesheet" href="style.css">
+    
+                <script type="module">
+            import { alertController } from 'https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/index.esm.js';
+            window.alertController = alertController;
+          </script>
+</head>
+
+<body>
+    <ion-app>
+        <ion-header>
+            <a class="back" href="index.html"><ion-icon name="caret-back-outline"></ion-icon></a>
+        </ion-header>
+        <ion-content>
+            <ion-list id="all-posts">
+            </ion-list>
+        
+            <ion-fab class="menu" horizontal="end" vertical="bottom" slot="fixed">
+                <ion-fab-button color="light">
+                    <ion-icon md="caret-back" ios="chevron-back-circle-outline"></ion-icon>
+                </ion-fab-button>
+            
+                <ion-fab-list side="start">
+                  <ion-fab-button color="light" id="deleteBtn">
+                    <ion-icon name="trash-outline"></ion-icon>
+                  </ion-fab-button>
+                  <ion-fab-button color="light">
+                    <ion-icon name="create-outline"></ion-icon>
+                  </ion-fab-button>
+                  <ion-fab-button color="light" href="post1.html">
+                    <ion-icon name="pencil-outline"></ion-icon>
+                  </ion-fab-button>
+                </ion-fab-list>
+              </ion-fab>
+        </ion-content>
+    </ion-app>
+
+    <script>
+    $(document).ready(function () {
+    var apiKey = "	9fb7c86d51fe67f4594c16f6e2842caa46286";
+    var myDB = "dmea1-6dde";
+    var myCollection = "posts";
+
+    function retrievePosts() {
+    console.log("start of posting");
+
+    var settings = {
+        "async": true,
+        "crossDomain": true,
+        "url": "https://"+ myDB +".restdb.io/rest/" + myCollection +"",
+        "method": "GET",
+        "headers": {
+        "content-type": "application/json",
+        "x-apikey": apiKey,
+        "cache-control": "no-cache"
+        }
+    }
+
+    $.ajax(settings).done(function (data) {
+        console.log("successfully log into db");
+        console.log(data);
+
+        var numPosts = data.length;
+        console.log("number of posts" + numPosts);
+        $("#num-posts").html(numPosts);
+        //do a jquery loop of json objects based on their keys(indexes)
+
+        $.each(data, function (key, value) {
+            console.log(key + "value");
+            console.log("date" + data[key].date);
+            console.log("mood" + data[key].mood);
+            console.log("weather" + data[key].weather);
+            console.log("title" + data[key].title);
+            console.log("msg" + data[key].msg);
+            console.log("id" + data[key]._id);
+            var posts = {
+                date: data[key].date,
+                mood: data[key].mood,
+                weather: data[key].weather,
+                title: data[key].title,
+                msg: data[key].msg,
+                id: data[key]._id
+            }
+
+            $("#all-posts").prepend(
+                `
+                <ion-item>
+                <input type=radio class="selectedRadio" name="sRadio" slot="end" color="primary" value="${posts.id}"></ion-radio>
+                <ion-card style="width:100%">
+                <ion-card-header>
+                <ion-card-subtitle>
+                <div class="side-date" style="width:70%; float:left;" ><h3>${posts.date}</h3></div>
+                <div class="side-icons" style="width:30%; float:left; text-align:center;"><h3>${posts.mood} ${posts.weather}</h3></div>
+                </ion-card-subtitle>
+                </ion-card-header>
+                <ion-card-content id="each-title">
+                <div class="side-title" style="width:70%; float:left;" ><h3>${posts.title}</h3></div>
+                </ion-card-content>
+                <ion-card-content id="each-msg">
+                <div class="side-msg" style="width:70%;" ><h3>${posts.msg}</h3></div>
+                </ion-card-content> 
+                </ion-card>
+                 </ion-item>
+                 `
+            );
+        }); //end each loop
+    });
+} //end
+retrievePosts();
+
+document.getElementById("deleteBtn").onclick = async function(){
+    
+    
+if ($("input[name='sRadio']:checked").val() == undefined){
+  const alert = document.createElement('ion-alert');
+  alert.cssClass = 'my-custom-class';
+  alert.header = 'No Selection';
+  alert.message = 'You need to select a post';
+  alert.buttons = ['OK'];
+
+  document.body.appendChild(alert);
+  return alert.present();
+}else{
+  const alert = await alertController.create({
+    header: 'Delete',
+    message: 'Delete the selected post?',
+    buttons: [{
+        text: 'No'
+    },{
+        text: 'Yes',
+        handler: ()=> {
+            event.preventDefault();
+            event.stopPropagation();
+            console.log("click event");
+            var id = $("input[name='sRadio']:checked").val();
+            console.log("id... " + id);
+            deletePosts(id);
+            }
+
+  }]})
+  await alert.present();   
+}
+}
+
+function deletePosts(id){
+                var settings = {
+                "async": true,
+                "crossDomain": true,
+                "url": "https://"+ myDB +".restdb.io/rest/" + myCollection + "/" + id,
+                "method": "DELETE",
+                "headers": {
+                    "content-type": "application/json",
+                    "x-apikey": apiKey,
+                    "cache-control": "no-cache"
+                }
+                }
+
+                $.ajax(settings).done(function (response) {
+                    console.log("delete post:" + id); 
+                        //animate before removing from DOM
+                        //tap on data id 
+                        $('tr[data-row="' + id +'"]').fadeOut(300, function(){ $(this).remove();});
+                        window.location.reload(); 
+                });
+
+            }
+
+})
+    </script>
+</body>
+</html>

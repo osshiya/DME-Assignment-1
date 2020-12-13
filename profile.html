@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, intial-scale=1.0">
+        <title>Profile</title>
+            <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+            <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css"/>
+
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+            <script type="module" src="https://unpkg.com/@ionic/pwa-elements@latest/dist/ionicpwaelements/ionicpwaelements.esm.js"></script>
+            <script nomodule src="https://unpkg.com/@ionic/pwa-elements@latest/dist/ionicpwaelements/ionicpwaelements.js"></script>
+
+            <link rel="stylesheet" href="style.css">
+    
+            <script type="module">
+            import { alertController } from 'https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/index.esm.js';
+            window.alertController = alertController;
+          </script>
+</head>
+
+<body>
+    <ion-app>
+        <ion-header>
+            <a class="back" href="index.html"><ion-icon name="caret-back-outline"></ion-icon></a>
+        </ion-header>
+        <ion-content  class="centered pfp" style="height: 50%;">
+                <a class="profile"><ion-icon name="person-outline"></ion-icon></a>
+                <ion-item>
+                    <ion-label>Name:</ion-label>
+                    <ion-input placeholder="Your Name" type="text" class="name"></ion-input>
+                  </ion-item>
+                  <ion-item>
+                    <ion-label>Bio:</ion-label>
+                    <ion-textarea placeholder="Write something about yourself..." type="text" class="bio"></ion-textarea>
+                  </ion-item>
+                  <ion-item>
+                    <ion-label>Change Passcode:</ion-label>
+                      <ion-input placeholder="Enter new Passcode" type="number" class="passcode"></ion-input>
+                  </ion-item>
+        </ion-content>
+        <ion-footer class="centered">
+            <ion-button expand="full" style="width: 100%;" id="updateBtn">Save</ion-button>
+        </ion-footer>
+    </ion-app>
+    
+    <script>
+    $(document).ready(function () {
+        $(".name").val(localStorage.getItem('name'));
+        $(".bio").val(localStorage.getItem('bio'));
+
+
+    document.getElementById("updateBtn").onclick = async function(){
+    
+      const alert = await alertController.create({
+        header: 'Confirm Changes?',
+        message: 'Do you want to make changes?',
+        buttons: [{
+            text: 'No'
+        },{
+            text: 'Yes',
+            handler: ()=> {
+                var name = $(".name").val();
+                localStorage.setItem('name', name);
+                $(".name").val(localStorage.getItem('name'));
+
+                var bio = $(".bio").val();
+                localStorage.setItem('bio', bio);
+                $(".bio").val(localStorage.getItem('bio'));
+                
+                
+                var passcodeLength = $(".passcode").val().length;
+                if (passcodeLength > 0){
+                var pc = $(".passcode").val();
+                localStorage.setItem('passcode', pc);
+                window.location.reload();
+                }
+            
+      }}]})
+      await alert.present();   
+    }
+    })
+    </script>
+</body>
+</html>

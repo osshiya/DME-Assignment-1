@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, intial-scale=1.0">
+        <title>Enter Passcode</title>
+            <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+            <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css"/>
+
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+            <link rel="stylesheet" href="style.css">
+
+            <script type="module">
+                import { alertController } from 'https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/index.esm.js';
+                window.alertController = alertController;
+              </script>
+</head>
+
+<body>
+    <ion-app>
+        <ion-content class="centered">
+                <h3 class="centeredH3">Momentum</h3>
+            <ion-item>
+                <ion-input class="passcode" placeholder="Enter Passcode" type="number"></ion-input>
+            </ion-item>
+        </ion-content>
+        <ion-footer class="centered">
+            <ion-button class="passcode" expand="full" style="width: 100%;" onclick="verifyPC()">Next</ion-button>
+        </ion-footer>
+    </ion-app>
+
+    <script>
+        function presentAlert() {
+        const alert = document.createElement('ion-alert');
+        alert.cssClass = 'my-custom-class';
+        alert.header = 'Wrong Passcode';
+        alert.message = 'You entered the wrong passcode.';
+        alert.buttons = ['Try Again'];
+
+        document.body.appendChild(alert);
+        return alert.present();
+        }
+
+        function verifyPC(){
+            var realPC = localStorage.getItem('passcode');
+            if($(".passcode").val() !== realPC){
+                presentAlert();
+            }else{
+                window.location.replace("index.html");
+            }
+        }
+
+    </script>
+
+</body>
+</html>

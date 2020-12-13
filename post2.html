@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, intial-scale=1.0">
+        <title>Create a New Post</title>
+            <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+            <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css"/>
+
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+            <link rel="stylesheet" href="style.css">
+
+            <script type="module">
+            import { alertController } from 'https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/index.esm.js';
+            window.alertController = alertController;
+          </script>
+            <style>
+                .date{
+                    vertical-align: middle;
+                    justify-content: center;
+                    text-align: center;
+                    margin-top: 70%;
+                    background-color: rgba(0, 0, 0, 0.384);
+                }
+
+                .post-title{
+                    font-size: 30px;
+                }
+
+                .menu ion-fab-button{
+                    font-size: 20px;
+                }
+            </style>
+</head>
+
+<body>
+    <ion-app>
+        <ion-header>
+            <a class="back" href="post1.html"><ion-icon name="caret-back-outline"></ion-icon></a>
+        </ion-header>
+        <ion-content>
+            <form id="form">
+            <ion-input id="post-title" placeholder="Title"></ion-input>
+            <ion-textarea id="post-msg" placeholder="Write Something..."></ion-textarea>
+        
+            <ion-fab class="menu" horizontal="end" vertical="bottom" slot="fixed">
+                <ion-fab-button color="light">
+                  <ion-icon md="caret-back" ios="chevron-back-circle-outline"></ion-icon>
+                </ion-fab-button>
+                <ion-fab-list side="start">
+                  <ion-fab-button color="light" id="clearBtn">
+                    <ion-icon name="trash-outline"></ion-icon>
+                  </ion-fab-button>
+                  <ion-fab-button color="light" id="saveBtn">
+                    <ion-icon name="save-outline"></ion-icon>
+                  </ion-fab-button>
+                  <ion-fab-button color="light">
+                    <ion-icon name="document-attach-outline"></ion-icon>
+                  </ion-fab-button>
+                  <ion-fab-button color="light">
+                    <ion-icon name="camera-outline"></ion-icon>
+                  </ion-fab-button>
+                </ion-fab-list>
+              </ion-fab>
+            </form>
+        </ion-content>
+    </ion-app>
+
+    <script>
+    $(document).ready(function () {
+         
+         var apiKey = "9fb7c86d51fe67f4594c16f6e2842caa46286";
+         var myDB = "dmea1-6dde";
+         var myCollection = "posts";
+     
+          //create listener for submit
+          var post = {
+            date: "",
+            mood: "",
+            weather: "",
+            title:"",
+            msg:""   
+          }
+          
+    document.getElementById("saveBtn").onclick = async function(){
+        ptitle = $("#post-title").val();
+        pmsg = $("#post-msg").val();
+    if (ptitle.length == 0 || pmsg.length == 0){
+        const alert = document.createElement('ion-alert');
+          alert.cssClass = 'my-custom-class';
+          alert.header = 'Empty field';
+          alert.message = 'You need to fill in all the blanks';
+          alert.buttons = ['OK'];
+
+          document.body.appendChild(alert);
+          return alert.present();
+        }else{
+        
+        
+      const alert = await alertController.create({
+        header: 'Post',
+        message: 'Do you want to post now?',
+        buttons: [{
+            text: 'No'
+        },{
+            text: 'Yes',
+            handler: ()=> {
+        console.log("submitting form details");
+        event.preventDefault();
+
+        //retrieve form values
+        post.date = sessionStorage.getItem('dates');
+        post.mood = sessionStorage.getItem('moods');
+        post.weather = sessionStorage.getItem('weathers');
+        post.title = $("#post-title").val();
+        post.msg = $("#post-msg").val();
+     
+            let postsDocument = {
+             date: post.date,
+             mood: post.mood,
+             weather: post.weather,
+             title: post.title,
+             msg: post.msg
+            };
+            
+            var settings = {
+              "async": true,
+              "crossDomain": true,
+              "url": "https://dmea1-6dde.restdb.io/rest/posts",
+              "method": "POST",
+              "headers": {
+                "content-type": "application/json",
+                "x-apikey": "9fb7c86d51fe67f4594c16f6e2842caa46286",
+                "cache-control": "no-cache"
+              },
+              "processData": false,
+              "data": JSON.stringify(postsDocument)
+            }
+     
+          $.ajax(settings).done(function (response) {
+            console.log(response);
+            window.location.replace("archive.html");
+          });
+            
+      }}]})
+      await alert.present();   
+    }
+    }
+    
+    document.getElementById("clearBtn").onclick = async function(){
+      const alert = await alertController.create({
+        header: 'Clear',
+        message: 'Do you want to clear everything?',
+        buttons: [{
+            text: 'No'
+        },{
+            text: 'Yes',
+            handler: ()=> {
+        $("#post-title").val("");
+        $("#post-msg").val("");
+          }    
+      }]})
+      await alert.present();   
+    }
+        })
+</script>
+</body>
+</html>
