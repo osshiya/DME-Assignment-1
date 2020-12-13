@@ -3,6 +3,7 @@ Momentum is a mobile application for users to log their daily moments and events
 
 - [GitHub](https://github.com/osshiya/DME-Assignment-1.git)
 - [GitHub Pages](https://osshiya.github.io/DME-Assignment-1/)
+- [Amphibistudio](https://student.amphibistudio.sg/10187403A/DME/DME-Assg01-S10187403A-OngShiYa/landing1.html)
 
 ## Design Process
 The application is designed for all ages group but mainly adolescene and youths who are on their phones most of thhe them and keep log down their days as habit. three different groups of users; Adminstrator, Staff and Students from IMGD.
