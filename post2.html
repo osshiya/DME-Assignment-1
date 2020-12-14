@@ -70,6 +70,8 @@
 
     <script>
     $(document).ready(function () {
+
+      var link = "https://cors-anywhere.herokuapp.com/";
          
          var apiKey = "9fb7c86d51fe67f4594c16f6e2842caa46286";
          var myDB = "dmea1-6dde";
@@ -128,7 +130,7 @@
             var settings = {
               "async": true,
               "crossDomain": true,
-              "url": "https://dmea1-6dde.restdb.io/rest/posts",
+              "url": link + "https://dmea1-6dde.restdb.io/rest/posts",
               "method": "POST",
               "headers": {
                 "content-type": "application/json",

@@ -49,6 +49,8 @@
 
     <script>
     $(document).ready(function () {
+
+    var link = "https://cors-anywhere.herokuapp.com/";
     var apiKey = "	9fb7c86d51fe67f4594c16f6e2842caa46286";
     var myDB = "dmea1-6dde";
     var myCollection = "posts";
@@ -59,7 +61,7 @@
     var settings = {
         "async": true,
         "crossDomain": true,
-        "url": "https://"+ myDB +".restdb.io/rest/" + myCollection +"",
+        "url": link + "https://"+ myDB +".restdb.io/rest/" + myCollection +"",
         "method": "GET",
         "headers": {
         "content-type": "application/json",
